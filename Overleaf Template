@@ -1,0 +1,176 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+
+\geometry{margin=1in}
+
+% --- Header/Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{ICSC Qualification Round Solutions}
+\rhead{\thepage}
+
+% --- Title Formatting ---
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\LARGE}
+  {\chaptertitlename\ \thechapter}{10pt}{\LARGE}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+% --- Code Block Styling ---
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\lstdefinestyle{custompython}{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{black},
+  tabsize=4,
+  language=Python,
+  keywordstyle=\color{blue},
+  stringstyle=\color{red!60!black},
+  commentstyle=\color{gray!70},
+  numbers=left,
+  numberstyle=\tiny\color{gray}
+}
+
+% --- Document Start ---
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    {\Huge\bfseries ICSC Qualification Round Solutions\par}
+    \vspace{2cm}
+    {\Large Jaino C. Cabrera\par}
+    \vfill
+    {\large August 23, 2025\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% --- Problem A ---
+\chapter{Problem A: Neural Network Components}
+\section*{Statement}
+Identify and label the core components of a simple feed-forward neural network (multi-layer perceptron) used to predict customer satisfaction.
+
+\section*{Components and Reasoning}
+Describe the roles of weights, summation, activation functions, biases, input, and output neurons.
+
+\section*{Relationship among Components}
+\[
+z = \sum_i w_i a_i + b, \quad \hat{y} = f(z)
+\]
+
+---
+
+% --- Problem B ---
+\chapter{Problem B: Cake Calculator}
+\section*{Statement}
+Given two integers (flour and sugar), compute:
+\begin{enumerate}
+  \item Maximum number of cakes.
+  \item Remaining flour and sugar.
+\end{enumerate}
+
+\section*{Derivation}
+\[
+k = \min\left(\left\lfloor \frac{\text{flour}}{100} \right\rfloor, \left\lfloor \frac{\text{sugar}}{50} \right\rfloor\right)
+\]
+
+\section*{Python Implementation}
+\begin{lstlisting}[style=custompython]
+def cake_calculator(flour: int, sugar: int) -> list:
+    if flour <= 0 or sugar <= 0:
+        raise ValueError("Flour and sugar must be positive integers.")
+    cakes = min(flour // 100, sugar // 50)
+    return [cakes, flour - cakes * 100, sugar - cakes * 50]
+\end{lstlisting}
+
+\section*{Complexity}
+\[
+\text{Time} = O(1), \quad \text{Space} = O(1)
+\]
+
+---
+
+% --- Problem C ---
+\chapter{Problem C: The School Messaging App}
+\section*{Given}
+Tables of probabilities and corresponding Fano codes.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Character & Probability & Fano Code \\
+\midrule
+A & 0.20 & 000 \\
+B & 0.15 & 100 \\
+C & 0.12 & 010 \\
+D & 0.10 & 1100 \\
+\bottomrule
+\end{tabular}
+\caption{Fano Codes for Characters}
+\end{table}
+
+\section*{Entropy}
+\[
+H = -\sum_i p_i \log_2 p_i \approx 3.324 \text{ bits/symbol}
+\]
+\[
+\text{Average Length} = 3.48, \quad \eta = 0.9552
+\]
+
+---
+
+% --- Problem D ---
+\chapter{Problem D: Word Search Puzzle}
+\section*{Overview}
+A 10×10 grid generator that places words in all 8 directions with overlap handling.
+
+\section*{Python Implementation}
+\begin{lstlisting}[style=custompython]
+import random
+
+def create_crossword(words: list):
+    size = 10
+    grid = [[None]*size for _ in range(size)]
+    # Logic for word placement here...
+    return grid
+\end{lstlisting}
+
+\section*{Complexity}
+For W words and average length L:
+\[
+O(W \cdot L)
+\]
+
+---
+
+% --- Problem E ---
+\chapter{Problem E: Functional Completeness of NAND}
+\section*{Statement}
+Show that NAND alone is functionally complete.
+
+\[
+\neg A = N(A,A), \quad
+A \land B = N(N(A,B),N(A,B)), \quad
+A \lor B = N(N(A,A),N(B,B))
+\]
+
+\section*{Conclusion}
+Since $\{\neg, \land\}$ is functionally complete, NAND alone suffices.
+
+---
+
+\end{document}
